@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Online Registration Form</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Online Application / Registration Form</h2>
+    <form id="registrationForm" method="POST" action="submit.php">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" name="phone" required>
+
+      <label for="course">Course:</label>
+      <select id="course" name="course" required>
+        <option value="">--Select--</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Mechanical">Mechanical</option>
+      </select>
+
+      <button type="submit">Submit Application</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // jQuery AJAX submission
+    $(document).ready(function(){
+      $("#registrationForm").on("submit", function(e){
+        e.preventDefault(); // prevent default form submission
+        $.ajax({
+          url: "submit.php",
+          type: "POST",
+          data: $(this).serialize(),
+          success: function(response){
+            $("#result").html(response).fadeIn();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
